@@ -11,6 +11,17 @@ const expectedDateFormats = [
   "yyyy-MM-dd",
   "MM/dd/yyyy"
 ];
+const indices = {
+  OPEN: 0,
+  START: 1,
+  END: 2,
+  TICKETS: 3,
+  PLACE: 4,
+  MAP: 5,
+  ACTIVE: 6,
+  TITLE: 7,
+  BODY: 8
+};
 
 function parseDate(s) {
   s = (s || "").trim();
@@ -43,20 +54,22 @@ export default async function() {
   const md = markdownIt();
 
   return dataRows.map(r => {
-    if (r[5] !== "TRUE") {
+    if (r[ACTIVE] !== "TRUE") {
       return null
     }
-    const start = parseDate(r[0]);
-    const end = parseDate(r[1]);
+    const open = parseDate(r[OPEN]);
+    const start = parseDate(r[START]);
+    const end = parseDate(r[END]);
     return {
       date: start,
+      open: open ? open.toFormat("EEEE dd.MM.yyyy HH:mm") : null,
       start: start ? start.toFormat("EEEE dd.MM.yyyy HH:mm") : null,
       end: end ? end.toFormat("EEEE dd.MM.yyyy HH:mm") : null,
-      tickets: r[2]?.trim(),
-      place: r[3].trim(),
-      map: r[4]?.trim(),
-      title: r[6]?.trim(),
-      body: md.render(r[7]?.trim()),
+      tickets: r[TICKETS]?.trim(),
+      place: r[PLACE].trim(),
+      map: r[MAP]?.trim(),
+      title: r[TITLE]?.trim(),
+      body: md.render(r[BODY]?.trim()),
     }
   }).filter(r => r && r.date > now).toSorted(
     (l, r) => l.date == r.date ? 0 : (l.date > r.date ? 1 : -1)

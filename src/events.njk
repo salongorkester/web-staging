@@ -17,15 +17,25 @@ description: Konserter og andre events med Bærum Salongorkester
         {{ event.body | safe }}
       </div>
       <div class="event-details">
-        {% if event.start %}
+        {% if event.open %}
         <div>
           <div>
             Dørene åpner
           </div>
           <div>
-            {{ event.start }}
+            {{ event.open }}
           </div>
         </div>
+        {% endif %}
+        {% if event.start %}
+          <div>
+            <div>
+              Start
+            </div>
+            <div>
+              {{ event.start }}
+            </div>
+          </div>
         {% endif %}
         {% if event.end %}
           <div>
