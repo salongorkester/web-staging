@@ -54,22 +54,22 @@ export default async function() {
   const md = markdownIt();
 
   return dataRows.map(r => {
-    if (r[ACTIVE] !== "TRUE") {
+    if (r[indices.ACTIVE] !== "TRUE") {
       return null
     }
-    const open = parseDate(r[OPEN]);
-    const start = parseDate(r[START]);
-    const end = parseDate(r[END]);
+    const open = parseDate(r[indices.OPEN]);
+    const start = parseDate(r[indices.START]);
+    const end = parseDate(r[indices.END]);
     return {
       date: start,
       open: open ? open.toFormat("EEEE dd.MM.yyyy HH:mm") : null,
       start: start ? start.toFormat("EEEE dd.MM.yyyy HH:mm") : null,
       end: end ? end.toFormat("EEEE dd.MM.yyyy HH:mm") : null,
-      tickets: r[TICKETS]?.trim(),
-      place: r[PLACE].trim(),
-      map: r[MAP]?.trim(),
-      title: r[TITLE]?.trim(),
-      body: md.render(r[BODY]?.trim()),
+      tickets: r[indices.TICKETS]?.trim(),
+      place: r[indices.PLACE].trim(),
+      map: r[indices.MAP]?.trim(),
+      title: r[indices.TITLE]?.trim(),
+      body: md.render(r[indices.BODY]?.trim()),
     }
   }).filter(r => r && r.date > now).toSorted(
     (l, r) => l.date == r.date ? 0 : (l.date > r.date ? 1 : -1)
