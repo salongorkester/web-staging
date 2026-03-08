@@ -3,6 +3,10 @@ import { parse } from "csv-parse/sync";
 import { DateTime } from "luxon";
 import markdownIt from "markdown-it";
 
+const maptypes = {
+  ROADMAP: 0,
+  SATELLITE: 1
+}
 const CSV_URL = process.env.SHEET_CSV_URL
 const zone = "Europe/Oslo";
 const expectedDateFormats = [
@@ -20,8 +24,9 @@ const indices = {
   MAP: 5,
   EMBED: 6,
   ACTIVE: 7,
-  TITLE: 8,
-  BODY: 9
+  FACEBOOK: 8,
+  TITLE: 9,
+  BODY: 10
 };
 
 function parseDate(s) {
@@ -34,6 +39,10 @@ function parseDate(s) {
     }
   }
   return d.isValid ? d.setLocale("nb") : null;
+}
+
+function embeddedMapURL(url) {
+  return url?.trim().replace(`!5e${maptypes.SATELLITE}!`, `!5e${maptypes.ROADMAP}!`)
 }
 
 export default async function() {
@@ -69,7 +78,8 @@ export default async function() {
       tickets: r[indices.TICKETS]?.trim(),
       place: r[indices.PLACE].trim(),
       map: r[indices.MAP]?.trim(),
-      embed: r[indices.EMBED]?.trim(),
+      embed: embeddedMapURL(r[indices.EMBED]),
+      facebook: r[indices.FACEBOOK]?.trim(),
       title: r[indices.TITLE]?.trim(),
       body: md.render(r[indices.BODY]?.trim()),
     }

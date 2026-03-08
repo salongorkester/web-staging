@@ -59,6 +59,18 @@ description: Konserter og andre events med Bærum Salongorkester
           </div>
           </div>
         {% endif %}
+        {% if event.facebook %}
+          <div>
+            <div>
+              Facebook
+            </div>
+            <div>
+              <a class="social" href="{{ event.facebook }}" target="_blank" rel="noopener" aria-label="{{ event.title }}">
+                <img src="/assets/facebook.svg" alt="">
+              </a>
+            </div>
+          </div>
+        {% endif %}
         {% if event.map or event.place %}
           <div>
             <div>
