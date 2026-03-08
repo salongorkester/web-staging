@@ -5,7 +5,7 @@ title: Bærum Salongorkester – Events
 description: Konserter og andre events med Bærum Salongorkester
 ---
 <div class="centered">
-  <h1>Eventer og konserter</h1>
+  <h1>Konserter og andre arrangementer</h1>
   {% for event in events %}
     <div class="event">
       <div class="event-title">
@@ -30,7 +30,7 @@ description: Konserter og andre events med Bærum Salongorkester
         {% if event.start %}
           <div>
             <div>
-              Start
+              Arrangementet starter
             </div>
             <div>
               {{ event.start }}
@@ -40,7 +40,7 @@ description: Konserter og andre events med Bærum Salongorkester
         {% if event.end %}
           <div>
           <div>
-            Slutt
+            Arrangementet varer til
           </div>
           <div>
             {{ event.end }}
