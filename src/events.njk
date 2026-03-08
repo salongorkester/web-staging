@@ -5,7 +5,9 @@ title: Bærum Salongorkester – Events
 description: Konserter og andre events med Bærum Salongorkester
 ---
 <div class="centered">
-  <h1>Konserter og andre arrangementer</h1>
+  <h1>
+    Konserter og andre arrangementer
+  </h1>
   {% for event in events %}
     <div class="event">
       <div class="event-title">
@@ -30,7 +32,7 @@ description: Konserter og andre events med Bærum Salongorkester
         {% if event.start %}
           <div>
             <div>
-              Arrangementet starter
+              Start
             </div>
             <div>
               {{ event.start }}
@@ -40,7 +42,7 @@ description: Konserter og andre events med Bærum Salongorkester
         {% if event.end %}
           <div>
           <div>
-            Arrangementet varer til
+            Slutt
           </div>
           <div>
             {{ event.end }}
@@ -59,15 +61,20 @@ description: Konserter og andre events med Bærum Salongorkester
         {% endif %}
         {% if event.map or event.place %}
           <div>
-          <div>
-            Sted
+            <div>
+              Sted
+            </div>
+            <div>
+              {{ event.place }}
+              {% if event.map %}
+                <a href="{{ event.map }}"><img class="icon" src="/assets/location.svg" /></a>
+              {% endif %}
+            </div>
           </div>
-          <div>
-            {{ event.place }}
-            {% if event.map %}
-              <a href="{{ event.map }}"><img class="icon" src="/assets/location.svg" /></a>
-            {% endif %}
-          </div>
+        {% endif %}
+        {% if event.embed %}
+          <div class="centered map-embed">
+            <iframe src="{{ event.embed }}" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         {% endif %}
       </div>

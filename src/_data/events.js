@@ -18,9 +18,10 @@ const indices = {
   TICKETS: 3,
   PLACE: 4,
   MAP: 5,
-  ACTIVE: 6,
-  TITLE: 7,
-  BODY: 8
+  EMBED: 6,
+  ACTIVE: 7,
+  TITLE: 8,
+  BODY: 9
 };
 
 function parseDate(s) {
@@ -68,6 +69,7 @@ export default async function() {
       tickets: r[indices.TICKETS]?.trim(),
       place: r[indices.PLACE].trim(),
       map: r[indices.MAP]?.trim(),
+      embed: r[indices.EMBED]?.trim(),
       title: r[indices.TITLE]?.trim(),
       body: md.render(r[indices.BODY]?.trim()),
     }
